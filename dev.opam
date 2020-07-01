@@ -1,0 +1,11 @@
+opam-version: "2.0"
+name: "dev"
+maintainer: "pomin5@gmail.com"
+depends: [
+  "opam-lock"
+  "utop"
+  "ocp-indent"
+  "merlin"
+  "ounit"
+  "odoc"
+]

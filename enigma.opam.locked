@@ -1,0 +1,13 @@
+opam-version: "2.0"
+name: "enigma"
+maintainer: "pomin5@gmail.com"
+depends: [
+  "base-threads" {= "base"}
+  "base-unix" {= "base"}
+  "dune" {= "2.5.1"}
+  "ocaml" {= "4.10.0"}
+]
+build: [
+  ["dune" "build" "-p" name "-j" jobs]
+]
+version: "dev"
