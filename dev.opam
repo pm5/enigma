@@ -6,6 +6,4 @@ depends: [
   "utop"
   "ocp-indent"
   "merlin"
-  "ounit"
-  "odoc"
 ]

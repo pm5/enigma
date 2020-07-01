@@ -1,3 +1,5 @@
+open Enigma
 
 let () =
-  print_endline "yo"
+  let it = [|'c'; 'a'; 'b'|] in
+
