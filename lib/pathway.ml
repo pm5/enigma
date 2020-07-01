@@ -1,16 +1,14 @@
-module Key = Char
+open Batteries
 
-module Permutation = struct
-  type 'a t = 'a * 'a array
-
-  let permute x =
+module Key = struct
+  type t = int
+  let all () = 0--255
 end
 
+
+module KeyPermutation = Permutation.Make(Key)
+
 module type Rotor = sig
-  type t
-  val make : Key.t Permutation.t -> t
-  val feed : Key.t -> Key.t
-  val rotate : t -> t
 end
 
 module Reflector = struct

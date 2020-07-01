@@ -1,4 +1,4 @@
 (executables
- (names main)
+ (names main encode decode)
  (libraries enigma)
 )

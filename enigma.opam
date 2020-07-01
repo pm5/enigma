@@ -3,7 +3,7 @@ name: "enigma"
 maintainer: "pomin5@gmail.com"
 depends: [
   "dune" {build}
-  "extlib"
+  "batteries"
 ]
 build: [
   ["dune" "build" "-p" name "-j" jobs]

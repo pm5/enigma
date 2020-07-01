@@ -1,2 +1,4 @@
 (library
- (name enigma))
+ (name enigma)
+ (libraries batteries)
+ )
