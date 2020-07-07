@@ -9,7 +9,7 @@ end
 module Make(P : Permutable with type t := int) = struct
   module IntMap = Map.Make(Int)
 
-  type t = IntMap
+  type t = BatInt.t IntMap.t
 
   let identity () =
     Enum.fold (fun acc x ->
@@ -40,12 +40,15 @@ module Make(P : Permutable with type t := int) = struct
     with Not_found -> failwith "invalid element"
 
   let mul pa pb =
-    Enum.fold (fun acc x ->
-      let targ = permute pa x |> permute pb in
-      IntMap.add x targ acc
+    Enum.fold (fun acc src ->
+      let dst = permute pb src |> permute pa in
+      IntMap.add src dst acc
     ) (identity ()) P.(all ())
 
   let ( * ) = mul
 
   let conj x phi = (inverse x) * phi * x
+
+  let rotate () : t =
+    P.all () |> List.of_enum |> cycle
 end

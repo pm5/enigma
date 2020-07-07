@@ -1,6 +1,17 @@
+open Printf
 open Enigma
 
+module Machine = Pathway.Make(Pathway.Key)
+
 let () =
-  let open Pathway in
+  let open Machine in
   let perm = KeyPermutation.(cycle [15; 20; 25; 30] |> conj (transp 20 30)) in
-  print_int KeyPermutation.(permute perm 25)
+  let rotor = Rotor.create ~step:1 perm in
+  printf "%d\n" Rotor.(pass rotor 25);
+  printf "%d\n" Rotor.(pass rotor 25);
+  printf "%d\n" Rotor.(pass rotor 25);
+  printf "%d\n" Rotor.(pass rotor 25);
+  printf "%d\n" Rotor.(pass rotor 25);
+  printf "%d\n" Rotor.(pass rotor 25);
+  printf "%d\n" Rotor.(pass rotor 25);
+  printf "%d\n" Rotor.(pass rotor 25);
