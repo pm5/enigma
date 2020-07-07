@@ -45,4 +45,16 @@ module Make(P : Permutation.Permutable with type t := int) = struct
     let pass refl key = KeyPermutation.permute refl key
   end
 
+  let right_rotor () = Rotor.create ~step:1 @@
+    KeyPermutation.cycle [
+      121; 33; 57; 90; 210; 13; 97
+    ]
+
+  let middle_rotor () = Rotor.create ~step:10 @@
+    KeyPermutation.identity ()
+
+  let left_rotor () = Rotor.create ~step:100 @@
+    KeyPermutation.identity ()
+
+  let reflector = Reflector.create (KeyPermutation.identity ())
 end
