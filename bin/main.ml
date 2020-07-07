@@ -1,7 +1,7 @@
 open Printf
 open Enigma
 
-module Machine = Pathway.Make(Pathway.Key)
+module Machine = Pathway.Make(Key.Bytes)
 
 let () =
   let open Machine in

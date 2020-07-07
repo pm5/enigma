@@ -1,10 +1,5 @@
 open Batteries
 
-module Key = struct
-  type t = int
-  let all () = 0--255
-end
-
 module Make(P : Permutation.Permutable with type t := int) = struct
 
   module KeyPermutation = Permutation.Make(P)

@@ -1,7 +1,7 @@
 open Batteries
 open Enigma
 
-module Machine = Pathway.Make(Pathway.Key)
+module Machine = Pathway.Make(Key.Bytes)
 
 let () =
   let in_file = "words.csv" in
