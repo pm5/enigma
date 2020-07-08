@@ -23,3 +23,11 @@ module Simple = struct
   let to_int = Char.code
   let of_int = Char.chr
 end
+
+module Base_pair = struct
+  type t = char
+  let all () = ['A'; 'T'; 'C'; 'G'] |> List.enum
+  let all_int () = all () |> Enum.map Char.code
+  let to_int = Char.code
+  let of_int = Char.chr
+end
