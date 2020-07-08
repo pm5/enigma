@@ -1,35 +1,36 @@
 open Batteries
 
-module Make(P : Permutation.Permutable with type t := int) = struct
+module Make(P : Permutation.Permutable) = struct
 
   module KeyPermutation = Permutation.Make(P)
 
   module Rotor = struct
     type t =
-      { mutable phi : KeyPermutation.t
+      { mutable forward : KeyPermutation.t
       ; step : int
       ; mutable count : int
       ; rotate : KeyPermutation.t
       }
 
-    let create ~step phi =
-      { phi
+    let create ~step perm =
+      { forward = perm
       ; step
       ; count = 0
       ; rotate = KeyPermutation.rotate ()
       }
 
     let step rotor =
-      let open KeyPermutation in
-      rotor.phi <- rotor.phi * rotor.rotate;
-      rotor.count <- 0
-
-    let pass rotor key =
-      let key' = KeyPermutation.permute rotor.phi key in
       rotor.count <- rotor.count + 1;
       if rotor.count >= rotor.step
-      then step rotor;
-      key'
+      then begin
+        let open KeyPermutation in
+        rotor.forward <- rotor.forward * rotor.rotate;
+        rotor.count <- 0
+      end
+
+    let forward rotor key =
+      KeyPermutation.permute rotor.forward key
+
   end
 
   module Reflector = struct
@@ -40,10 +41,20 @@ module Make(P : Permutation.Permutable with type t := int) = struct
     let pass refl key = KeyPermutation.permute refl key
   end
 
+  module Plugboard = struct
+    type t = KeyPermutation.t
+
+    let empty () = KeyPermutation.identity ()
+
+    let plug pb a b =
+      let open KeyPermutation in
+      pb * (transp a b)
+  end
+
+  let create ~_rotors ~_reflector ~_plugboard = failwith "not implemented"
+
   let right_rotor () = Rotor.create ~step:1 @@
-    KeyPermutation.cycle [
-      121; 33; 57; 90; 210; 13; 97
-    ]
+    KeyPermutation.identity ()
 
   let middle_rotor () = Rotor.create ~step:10 @@
     KeyPermutation.identity ()
