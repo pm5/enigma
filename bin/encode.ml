@@ -4,13 +4,11 @@ open Enigma
 module Machine = Pathway.Make(Key.Byte)
 
 let () =
-  let in_file = "words.csv" in
-  let rotor = Machine.(Rotor.create ~step:1 KeyPermutation.(cycle [13; 29; 31; 37])) in
+  let in_file = Sys.argv.(1) in
   let inc = File.open_in in_file in
   try
     while true do
       IO.read_byte inc
-          |> Machine.Rotor.forward rotor
           |> Base_pair.of_byte
           |> List.map Base_pair.to_char
           |> List.iter (fun c -> Printf.printf "%c" c)
