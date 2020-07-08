@@ -15,3 +15,11 @@ module Letter = struct
   let to_int = Char.code
   let of_int = Char.chr
 end
+
+module Simple = struct
+  type t = char
+  let all () = ['A'; 'S'; 'D'; 'F'] |> List.enum
+  let all_int () = all () |> Enum.map Char.code
+  let to_int = Char.code
+  let of_int = Char.chr
+end

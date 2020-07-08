@@ -5,7 +5,7 @@ module Machine = Pathway.Make(Key.Byte)
 
 let () =
   let in_file = "words.csv" in
-  let rotor = Machine.right_rotor () in
+  let rotor = Machine.(Rotor.create ~step:1 KeyPermutation.(cycle [13; 29; 31; 37])) in
   let inc = File.open_in in_file in
   try
     while true do
