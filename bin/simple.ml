@@ -4,6 +4,9 @@ open Enigma
 module Machine = Pathway.Make(Key.Simple)
 
 let () =
+  let plaintext = IO.read_line stdin |> String.strip
+  in
+
   let open Machine in
   let right_rotor = Rotor.create ~step:1 KeyPermutation.(cycle ['A'; 'F'; 'D'; 'S'])
   and middle_rotor = Rotor.create ~step:4 KeyPermutation.((cycle ['A'; 'S']) * (cycle ['D'; 'F']))
@@ -15,7 +18,4 @@ let () =
   ~reflector ~plugboard
   in
 
-  IO.read_line stdin
-  |> String.strip
-  |> String.map Machine.(encrypt machine)
-  |> String.iter Printf.(printf "%c")
+  plaintext |> String.map Machine.(encrypt machine) |> String.iter Printf.(printf "%c")

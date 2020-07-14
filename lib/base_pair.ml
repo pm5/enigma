@@ -1,3 +1,5 @@
+open Batteries
+
 type t = A | T | C | G
 
 let to_char = function
@@ -40,3 +42,19 @@ let to_byte bp =
     | G -> acc * 4 + 3
   ) 0 bp
 
+let to_int = function
+  | A -> 0
+  | T -> 1
+  | C -> 2
+  | G -> 3
+
+let of_int = function
+  | 0 -> A
+  | 1 -> T
+  | 2 -> C
+  | 3 -> G
+  | _ -> failwith "invalid int value"
+
+let all () = [A; T; C; G] |> List.enum
+
+let all_int () = all () |> Enum.map to_int

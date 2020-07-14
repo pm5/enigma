@@ -1,4 +1,4 @@
 (executables
- (names simple bp main encode decode)
+ (names simple bp main encode decode intergrass)
  (libraries enigma)
 )
