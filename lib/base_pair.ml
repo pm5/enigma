@@ -16,8 +16,8 @@ let of_char = function
   | _ -> failwith "invalid"
 
 let of_byte b =
-  let rec aux acc x =
-    if x = 0 then acc
+  let rec aux i acc x =
+    if i = 0 then acc
     else begin
       let acc' = (
         match x mod 4 with
@@ -28,10 +28,10 @@ let of_byte b =
         | _ -> failwith "invalid"
       )::acc in
       let x' = x / 4 in
-      aux acc' x'
+      aux (i - 1) acc' x'
     end
   in
-  aux [] b
+  aux 4 [] b
 
 let to_byte bp =
   List.fold_left (fun acc x ->

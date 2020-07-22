@@ -13,11 +13,7 @@ let make_machine () =
   in
   create ~rotors:[right_rotor; middle_rotor; left_rotor] ~reflector ~plugboard
 
-let () =
-  let plaintext = IO.read_all stdin |> String.strip
-  and machine = make_machine ()
-  in
-
+let encode machine plaintext =
   plaintext
   |> String.enum
   |> List.of_enum
@@ -26,3 +22,29 @@ let () =
   |> List.map Machine.(encrypt machine)
   |> List.map Base_pair.to_char
   |> List.iter Printf.(printf "%c")
+
+let decode machine ciphertext =
+  let rec list_cut = function
+    | a::b::c::d::xs -> [a; b; c; d]::list_cut xs
+    | _ -> []
+  in
+
+  ciphertext
+  |> String.enum
+  |> List.of_enum
+  |> List.map Base_pair.of_char
+  |> List.map Machine.(encrypt machine)
+  |> list_cut
+  |> List.map Base_pair.to_byte
+  |> List.map Char.chr
+  |> List.iter Printf.(printf "%c")
+
+let () =
+  let text = IO.read_all stdin |> String.strip
+  and machine = make_machine ()
+  in
+
+  match Sys.argv.(1) with
+  | "encode" -> encode machine text
+  | "decode" -> decode machine text
+  | _ -> failwith "unknown command"
