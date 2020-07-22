@@ -1,4 +1,4 @@
 (executables
- (names simple bytes intergrass)
+ (names simple letters bytes intergrass)
  (libraries enigma)
 )
